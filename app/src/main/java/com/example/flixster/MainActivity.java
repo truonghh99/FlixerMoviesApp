@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                     movieAdapter.notifyDataSetChanged();
                     Log.i(TAG, "Movies: " + movies.size());
                 } catch (JSONException e) {
-                    Log.e(TAG, "failed to extract JSONArray");
+                    Log.e(TAG, "Failed to extract JSONArray");
                 }
             }
 
