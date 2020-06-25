@@ -47,7 +47,7 @@ public class MovieTrailerActivity extends YouTubeBaseActivity {
         Log.e(TAG, "done");
 
         try {
-            TimeUnit.MILLISECONDS.sleep(500);
+            TimeUnit.MILLISECONDS.sleep(200);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

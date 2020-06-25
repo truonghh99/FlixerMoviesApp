@@ -2,6 +2,7 @@ package com.example.flixster;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,12 +12,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.flixster.adapters.MovieAdapter;
+import com.example.flixster.comparators.DateComparator;
+import com.example.flixster.comparators.RatingComparator;
 import com.example.flixster.databinding.ActivityMainBinding;
 import com.example.flixster.models.Movie;
 
@@ -25,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import okhttp3.Headers;
@@ -83,8 +87,9 @@ public class MainActivity extends AppCompatActivity {
                     JSONArray results = jsonObject.getJSONArray("results");
                     Log.i(TAG, "Results: " + results.toString());
                     movies.addAll(Movie.extractMoviesFromJsonArray(results));
+                    Collections.sort(movies, new RatingComparator());
                     movieAdapter.notifyDataSetChanged();
-                    movieAdapter.updateFullList();
+                    movieAdapter.updateFullList(movies);
                     Log.i(TAG, "Movies: " + movies.size());
                 } catch (JSONException e) {
                     Log.e(TAG, "Failed to extract JSONArray");
@@ -105,13 +110,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.example_menu, menu);
+        inflater.inflate(R.menu.main_menu, menu);
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
+        MenuItem switchItem = menu.findItem(R.id.action_switch);
+
         SearchView searchView = (SearchView) searchItem.getActionView();
+        Switch mySwitch = switchItem.getActionView().findViewById(R.id.swSort);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
@@ -122,8 +129,25 @@ public class MainActivity extends AppCompatActivity {
                 movieAdapter.getFilter().filter(newText);
                 return false;
             }
-
         });
+
+
+        mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (!compoundButton.isChecked()) {
+                    Collections.sort(movies, new RatingComparator());
+                    movieAdapter.notifyDataSetChanged();
+                    movieAdapter.updateFullList(movies);
+                } else {
+                    Collections.sort(movies, new DateComparator());
+                    movieAdapter.notifyDataSetChanged();
+                    movieAdapter.updateFullList(movies);
+                }
+            }
+        });
+
         return true;
     }
+
 }

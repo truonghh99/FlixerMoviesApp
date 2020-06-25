@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Movie {
@@ -16,6 +17,7 @@ public class Movie {
     String movieId;
     double popularity;
     double rating;
+    String date;
 
 
     public Movie(JSONObject jsonObject) throws JSONException {
@@ -26,6 +28,7 @@ public class Movie {
         popularity = jsonObject.getDouble("popularity");
         rating = jsonObject.getDouble("vote_average");
         movieId = jsonObject.getString("id");
+        date = jsonObject.getString("release_date");
     }
 
     public static List<Movie> extractMoviesFromJsonArray(JSONArray movieJsonArray) throws JSONException {
@@ -62,5 +65,9 @@ public class Movie {
 
     public String getId() {
         return movieId;
+    }
+
+    public String getDate() {
+        return date;
     }
 }

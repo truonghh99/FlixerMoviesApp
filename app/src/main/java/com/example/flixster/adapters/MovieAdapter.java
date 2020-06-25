@@ -79,7 +79,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         this.clickListener = clickListener;
     }
 
-    public void updateFullList() {
+    public void updateFullList(List<Movie> movies) {
         moviesFull = new ArrayList<>(movies);
     }
 
