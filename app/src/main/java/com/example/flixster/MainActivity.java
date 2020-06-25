@@ -1,12 +1,18 @@
 package com.example.flixster;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
@@ -31,10 +37,14 @@ public class MainActivity extends AppCompatActivity {
     public static final String KEY_ITEM_POSITION = "item_position";
 
     public static List<Movie> movies;
+    MovieAdapter movieAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //this.getSupportActionBar().hide();
+
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -54,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
         // Create the adapter
-        final MovieAdapter movieAdapter = new MovieAdapter(this, movies, onClickListener);
+        movieAdapter = new MovieAdapter(this, movies, onClickListener);
 
         // Set the adapter on the recycler view
         rvMovies.setAdapter(movieAdapter);
@@ -74,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.i(TAG, "Results: " + results.toString());
                     movies.addAll(Movie.extractMoviesFromJsonArray(results));
                     movieAdapter.notifyDataSetChanged();
+                    movieAdapter.updateFullList();
                     Log.i(TAG, "Movies: " + movies.size());
                 } catch (JSONException e) {
                     Log.e(TAG, "Failed to extract JSONArray");
@@ -89,5 +100,30 @@ public class MainActivity extends AppCompatActivity {
 
     public static Movie getMovie(int position) {
         return movies.get(position);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.example_menu, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                movieAdapter.getFilter().filter(newText);
+                return false;
+            }
+
+        });
+        return true;
     }
 }
