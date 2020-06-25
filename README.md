@@ -2,7 +2,7 @@
 
 **FlixerMoviesApp** shows the latest movies currently playing in theaters. The app utilizes the Movie Database API to display images and basic information about these movies to the user.
 
-Time spent: **10** hours spent in total
+Time spent: **20** hours spent in total
 
 ## User Stories
 
@@ -25,6 +25,9 @@ The following **stretch** features are implemented:
 The following **additional** features are implemented:
 
 * [x] Add a searchbar for user to search movies from the current list
+* [x] Add the ability to sort movie list based on rating / release date
+* [ ] Allow user to save their favorite movies and create a new library activity to store those movies
+
 
 ## Video Walkthrough
 
