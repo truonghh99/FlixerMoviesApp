@@ -1,6 +1,9 @@
 package com.example.flixster;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.ButtonBarLayout;
+import androidx.appcompat.widget.SearchView;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -8,16 +11,26 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.example.flixster.comparators.DateComparator;
+import com.example.flixster.comparators.RatingComparator;
 import com.example.flixster.databinding.ActivityInfoBinding;
 import com.example.flixster.databinding.ActivityMainBinding;
 import com.example.flixster.models.Movie;
+
+import java.util.Collections;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
@@ -38,6 +51,7 @@ public class InfoActivity extends AppCompatActivity {
         ActivityInfoBinding binding = ActivityInfoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Bind view from layout
         title = binding.tvTitleInfo;
         ratingBar = binding.ratingBar;
         popularity = binding.tvPopularity;
@@ -45,17 +59,17 @@ public class InfoActivity extends AppCompatActivity {
         ivPoster = binding.ivPosterInfo;
         playIcon = getResources().getDrawable(R.drawable.ic_play);
 
-        getSupportActionBar().setTitle("Movie details");
-
         // Get selected movie from Main Activity
         int position = getIntent().getExtras().getInt(MainActivity.KEY_ITEM_POSITION);
         movie = MainActivity.getMovie(position);
 
+        // Render information of selected movie
         title.setText(movie.getTitle());
         ratingBar.setRating((float) movie.getRating() / 10 * 5);
         popularity.setText("Popularity: " + Double.toString(movie.getPopularity()));
         overview.setText(movie.getOverview());
 
+        // Select suitable image
         String imageUrl;
         int placeholder;
 
@@ -67,11 +81,7 @@ public class InfoActivity extends AppCompatActivity {
             placeholder = R.drawable.flicks_backdrop_placeholder;
         }
 
-
-        //ivPoster.getOverlay().add(playIcon);
-
-        Log.e("OVERLAY", ivPoster.getOverlay().toString());
-
+        // Render image
         Glide.with(this)
                 .asBitmap()
                 .load(imageUrl)
@@ -79,6 +89,7 @@ public class InfoActivity extends AppCompatActivity {
                 .fitCenter()
                 .into(ivPoster);
 
+        // Start trailer activity when poster is clicked
         ivPoster.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,5 +99,19 @@ public class InfoActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    // Implement details on toolbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.info_menu, menu);
+
+        MenuItem addItem = menu.findItem(R.id.btAdd);
+        MenuItem libraryItem = menu.findItem(R.id.btLibrary);
+
+        ButtonBarLayout btAdd = (ButtonBarLayout) addItem.getActionView();
+        ButtonBarLayout btLibrary = (ButtonBarLayout) libraryItem.getActionView();
+        return true;
     }
 }
