@@ -36,24 +36,26 @@ public class MovieTrailerActivity extends YouTubeBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Set up window
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_movie_trailer);
 
+        // Get videoUrl
         String videoUrl = getUrl();
         getVideos(videoUrl);
-        Log.e(TAG, "done");
 
+        // Avoid race condition caused by AsyncHttpClient
         try {
             TimeUnit.MILLISECONDS.sleep(200);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
+        // Initialize video player & attempt to play the newly found videos
         YouTubePlayerView playerView = (YouTubePlayerView) findViewById(R.id.player);
-        // initialize with API key stored in secrets.xml
         playerView.initialize(API_KEY, new YouTubePlayer.OnInitializedListener() {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider,
@@ -80,6 +82,7 @@ public class MovieTrailerActivity extends YouTubeBaseActivity {
         });
     }
 
+    // Get video request url from movie id passed in by InfoActivity
     private String getUrl() {
         String movieId = getIntent().getExtras().getString(InfoActivity.KEY_ID);
         String videoUrl = VIDEO_REQUEST_URL_1 + movieId + VIDEO_REQUEST_URL_2;
@@ -87,6 +90,7 @@ public class MovieTrailerActivity extends YouTubeBaseActivity {
         return videoUrl;
     }
 
+    // Request list of possible videos related to the current movie
     private synchronized void getVideos(String videoUrl) {
         AsyncHttpClient client = new AsyncHttpClient();
         videos = new ArrayList<Video>();

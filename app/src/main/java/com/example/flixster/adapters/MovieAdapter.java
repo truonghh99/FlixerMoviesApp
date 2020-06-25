@@ -36,6 +36,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     List<Movie> moviesFull;
     OnClickListener clickListener;
 
+    // Implement customized filter for the search bar
     private Filter filter = new Filter() {
 
         @Override
@@ -79,6 +80,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         this.clickListener = clickListener;
     }
 
+    /* Update the full list of movies to be used for the search bar (after clearing filter).
+    moviesFull is only updated when:
+     1. The movie list is loaded successfully for the first time
+     2. The movie list gets sorted to a different order
+     */
     public void updateFullList(List<Movie> movies) {
         moviesFull = new ArrayList<>(movies);
     }
@@ -161,7 +167,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                 }
             });
 
-            // Notify the listener with clicked overview
+            // Notify the listener with clicked poster/backdrop
             ivPoster.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

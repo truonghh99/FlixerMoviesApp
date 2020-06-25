@@ -31,6 +31,7 @@ public class Movie {
         date = jsonObject.getString("release_date");
     }
 
+    // Extract movies from given JsonArray
     public static List<Movie> extractMoviesFromJsonArray(JSONArray movieJsonArray) throws JSONException {
         List<Movie> movies = new ArrayList<>();
         for (int i = 0; i < movieJsonArray.length(); ++i) {

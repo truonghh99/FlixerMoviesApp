@@ -11,5 +11,5 @@
         android:layout_centerVertical="true"
         android:thumbTint="@color/white"
         android:trackTint="@color/white"
-        android:text="Highest Rating / Earliest"/>
+        android:text="Rating/Newest"/>
 </RelativeLayout>

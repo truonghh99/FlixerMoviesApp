@@ -14,6 +14,7 @@ public class Video {
         videoKey = jsonObject.getString("key");
     }
 
+    // Extract videos from given JSON Array
     public static List<Video> extractVideosFromJsonArray(JSONArray videoJsonArray) throws JSONException {
         List<Video> videos = new ArrayList<>();
         for (int i = 0; i < videoJsonArray.length(); ++i) {

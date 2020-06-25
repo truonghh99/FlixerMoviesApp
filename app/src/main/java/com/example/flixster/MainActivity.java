@@ -40,24 +40,18 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = "MainActivity";
     public static final String KEY_ITEM_POSITION = "item_position";
 
-    public static List<Movie> movies;
+    public static List<Movie> movies = new ArrayList<>();
     MovieAdapter movieAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //this.getSupportActionBar().hide();
-
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        RecyclerView rvMovies = binding.rvMovies;
 
-        RecyclerView rvMovies = findViewById(R.id.rvMovies);
-        movies = new ArrayList<>();
-
-        AsyncHttpClient client = new AsyncHttpClient();
-
-        // Open information view for clicked item
+        // Start information activity customized for clicked item
         MovieAdapter.OnClickListener onClickListener= new MovieAdapter.OnClickListener() {
             @Override
             public void onClickListener(int position) {
@@ -67,16 +61,13 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        // Create the adapter
+        // Create the adapter & set up recycler view
         movieAdapter = new MovieAdapter(this, movies, onClickListener);
-
-        // Set the adapter on the recycler view
         rvMovies.setAdapter(movieAdapter);
-
-        // Set a Layout Manager
         rvMovies.setLayoutManager(new LinearLayoutManager(this));
 
         // Request movies' information from now playing url
+        AsyncHttpClient client = new AsyncHttpClient();
         client.get(NOW_PLAYING_URL, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
@@ -107,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         return movies.get(position);
     }
 
+    // Implement details on toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -118,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
         SearchView searchView = (SearchView) searchItem.getActionView();
         Switch mySwitch = switchItem.getActionView().findViewById(R.id.swSort);
 
+        // Pass input search to filter handler in movieAdapter
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -131,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        // Implement sort switch: use DateComparator when not checked and RatingComparator when checked
         mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
