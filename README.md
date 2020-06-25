@@ -25,6 +25,7 @@ The following **stretch** features are implemented:
 The following **additional** features are implemented:
 
 * [x] Add a searchbar for user to search movies from the current list
+* [x] Add the ability to sort movie list based on rating / release date
 
 ## Video Walkthrough
 
