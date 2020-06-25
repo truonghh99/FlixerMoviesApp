@@ -4,13 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.flixster.databinding.ActivityInfoBinding;
 import com.example.flixster.databinding.ActivityMainBinding;
 import com.example.flixster.models.Movie;
@@ -25,6 +29,7 @@ public class InfoActivity extends AppCompatActivity {
     TextView popularity;
     TextView overview;
     Movie movie;
+    Drawable playIcon;
     ImageView ivPoster;
 
     @Override
@@ -38,6 +43,7 @@ public class InfoActivity extends AppCompatActivity {
         popularity = binding.tvPopularity;
         overview = binding.tvOverviewInfo;
         ivPoster = binding.ivPosterInfo;
+        playIcon = getResources().getDrawable(R.drawable.ic_play);
 
         getSupportActionBar().setTitle("Movie details");
 
@@ -61,7 +67,13 @@ public class InfoActivity extends AppCompatActivity {
             placeholder = R.drawable.flicks_backdrop_placeholder;
         }
 
+
+        //ivPoster.getOverlay().add(playIcon);
+
+        Log.e("OVERLAY", ivPoster.getOverlay().toString());
+
         Glide.with(this)
+                .asBitmap()
                 .load(imageUrl)
                 .placeholder(placeholder)
                 .fitCenter()
@@ -75,5 +87,6 @@ public class InfoActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
 }
