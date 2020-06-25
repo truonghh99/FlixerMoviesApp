@@ -13,12 +13,17 @@ public class Movie {
     String posterPath;
     String title;
     String overview;
+    double popularity;
+    double rating;
+
 
     public Movie(JSONObject jsonObject) throws JSONException {
         backdropPath = jsonObject.getString("backdrop_path");
         posterPath = jsonObject.getString("poster_path");
         title = jsonObject.getString("title");
         overview = jsonObject.getString("overview");
+        popularity = jsonObject.getDouble("popularity");
+        rating = jsonObject.getDouble("vote_average");
     }
 
     public static List<Movie> extractMoviesFromJsonArray(JSONArray movieJsonArray) throws JSONException {
@@ -43,5 +48,13 @@ public class Movie {
 
     public String getBackdropPath() {
         return String.format("https://image.tmdb.org/t/p/w342/%s", backdropPath);
+    }
+
+    public double getPopularity() {
+        return popularity;
+    }
+
+    public double getRating() {
+        return rating;
     }
 }

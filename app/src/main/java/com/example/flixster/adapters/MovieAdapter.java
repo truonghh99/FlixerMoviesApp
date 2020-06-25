@@ -25,10 +25,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
     Context context;
     List<Movie> movies;
+    OnClickListener clickListener;
 
-    public MovieAdapter(Context context, List<Movie> movies) {
+    public interface OnClickListener {
+        void onClickListener(int position);
+    }
+
+    public MovieAdapter(Context context, List<Movie> movies, OnClickListener clickListener) {
         this.context = context;
         this.movies = movies;
+        this.clickListener = clickListener;
     }
 
     // Inflate layout from XML and returning the holder
@@ -91,6 +97,30 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                     .fitCenter()
                     .transform(new RoundedCornersTransformation(radius, margin))
                     .into(ivPoster);
+
+            // Notify the listener with clicked title
+            tvTitle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    clickListener.onClickListener(getAdapterPosition());
+                }
+            });
+
+            // Notify the listener with clicked overview
+            tvOverview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    clickListener.onClickListener(getAdapterPosition());
+                }
+            });
+
+            // Notify the listener with clicked overview
+            ivPoster.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    clickListener.onClickListener(getAdapterPosition());
+                }
+            });
         }
     }
 }

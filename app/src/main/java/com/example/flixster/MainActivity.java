@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -26,8 +27,9 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String NOW_PLAYING_URL = "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
     public static final String TAG = "MainActivity";
+    public static final String KEY_ITEM_POSITION = "item_position";
 
-    List<Movie> movies;
+    public static List<Movie> movies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +40,18 @@ public class MainActivity extends AppCompatActivity {
 
         AsyncHttpClient client = new AsyncHttpClient();
 
+        // Open information view for clicked item
+        MovieAdapter.OnClickListener onClickListener= new MovieAdapter.OnClickListener() {
+            @Override
+            public void onClickListener(int position) {
+                Intent intent = new Intent(MainActivity.this, InfoActivity.class);
+                intent.putExtra(KEY_ITEM_POSITION, position);
+                startActivity(intent);
+            }
+        };
+
         // Create the adapter
-        final MovieAdapter movieAdapter = new MovieAdapter(this, movies);
+        final MovieAdapter movieAdapter = new MovieAdapter(this, movies, onClickListener);
 
         // Set the adapter on the recycler view
         rvMovies.setAdapter(movieAdapter);
@@ -70,6 +82,9 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "onFailure");
             }
         });
+    }
 
+    public static Movie getMovie(int position) {
+        return movies.get(position);
     }
 }
