@@ -47,6 +47,7 @@
         android:numStars="5"
         android:progressTint="@color/golden"
         android:secondaryProgressTint="@color/golden"
+        android:progressBackgroundTint="@color/grey"
         />
 
     <TextView
