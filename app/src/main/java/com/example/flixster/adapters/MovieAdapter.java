@@ -1,5 +1,6 @@
 package com.example.flixster.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
@@ -15,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.example.flixster.R;
+import com.example.flixster.databinding.ActivityMainBinding;
+import com.example.flixster.databinding.ItemMovieBinding;
 import com.example.flixster.models.Movie;
 
 import java.util.List;
@@ -41,8 +44,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View movieView = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false);
-        return new ViewHolder(movieView);
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        ItemMovieBinding itemMovieBinding = ItemMovieBinding.inflate(layoutInflater, parent, false);
+        return new ViewHolder(itemMovieBinding);
     }
 
     // Return the total count of item in the list
@@ -66,11 +70,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         TextView tvOverview;
         ImageView ivPoster;
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            tvTitle = itemView.findViewById(R.id.tvTitle);
-            tvOverview = itemView.findViewById(R.id.tvOverview);
-            ivPoster = itemView.findViewById(R.id.ivPoster);
+        public ViewHolder(@NonNull ItemMovieBinding itemMovieBinding) {
+            super(itemMovieBinding.getRoot());
+            this.tvTitle = itemMovieBinding.tvTitle;
+            this.tvOverview = itemMovieBinding.tvOverview;
+            this.ivPoster = itemMovieBinding.ivPoster;
         }
 
         // Bind each information of given movie to the template

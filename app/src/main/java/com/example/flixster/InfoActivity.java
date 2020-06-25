@@ -9,6 +9,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.flixster.databinding.ActivityInfoBinding;
+import com.example.flixster.databinding.ActivityMainBinding;
 import com.example.flixster.models.Movie;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
@@ -25,13 +27,14 @@ public class InfoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_info);
+        ActivityInfoBinding binding = ActivityInfoBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        title = findViewById(R.id.tvTitleInfo);
-        ratingBar = findViewById(R.id.ratingBar);
-        popularity = findViewById(R.id.tvPopularity);
-        overview = findViewById(R.id.tvOverviewInfo);
-        ivPoster = findViewById(R.id.ivPosterInfo);
+        title = binding.tvTitleInfo;
+        ratingBar = binding.ratingBar;
+        popularity = binding.tvPopularity;
+        overview = binding.tvOverviewInfo;
+        ivPoster = binding.ivPosterInfo;
 
         getSupportActionBar().setTitle("Movie details");
 
