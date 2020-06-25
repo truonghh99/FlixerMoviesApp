@@ -46,6 +46,7 @@
         android:layout_toEndOf="@+id/ivPosterInfo"
         android:progressTint="@color/golden"
         android:secondaryProgressTint="@color/golden"
+        android:progressBackgroundTint="@color/grey"
         android:numStars="5" />
 
     <TextView
