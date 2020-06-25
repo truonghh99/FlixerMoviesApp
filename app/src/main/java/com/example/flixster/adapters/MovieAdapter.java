@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,15 +23,51 @@ import com.example.flixster.databinding.ActivityMainBinding;
 import com.example.flixster.databinding.ItemMovieBinding;
 import com.example.flixster.models.Movie;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> implements Filterable {
 
     Context context;
     List<Movie> movies;
+    List<Movie> moviesFull;
     OnClickListener clickListener;
+
+    private Filter filter = new Filter() {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            List<Movie> filteredList = new ArrayList<>();
+            if (charSequence == null || charSequence.length() == 0) {
+                filteredList.addAll(moviesFull);
+            } else {
+                String filterPattern = charSequence.toString().toLowerCase().trim();
+                for (Movie movie : moviesFull) {
+                    if (movie.getTitle().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(movie);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            movies.clear();
+            movies.addAll((List) filterResults.values);
+            notifyDataSetChanged();
+        }
+    };
+
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
 
     public interface OnClickListener {
         void onClickListener(int position);
@@ -38,6 +77,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         this.context = context;
         this.movies = movies;
         this.clickListener = clickListener;
+    }
+
+    public void updateFullList() {
+        moviesFull = new ArrayList<>(movies);
     }
 
     // Inflate layout from XML and returning the holder
