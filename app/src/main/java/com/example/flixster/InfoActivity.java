@@ -8,6 +8,7 @@ import androidx.appcompat.widget.SearchView;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -56,6 +57,7 @@ public class InfoActivity extends AppCompatActivity {
         ActivityInfoBinding binding = ActivityInfoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         getSupportActionBar().setTitle("Details");
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.purple)));
 
         // Bind view from layout
         title = binding.tvTitleInfo;

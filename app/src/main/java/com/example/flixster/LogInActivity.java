@@ -33,6 +33,7 @@ public class LogInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityLogInBinding binding = ActivityLogInBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        getSupportActionBar().hide();
 
         etEmail = binding.etEmailLogin;
         etPassword = binding.etPassword;
@@ -50,6 +51,7 @@ public class LogInActivity extends AppCompatActivity {
 
                 if (email == null || password == null || email.length() == 0 || password.length() == 0) {
                     Toast.makeText(getApplicationContext(), "Email and password cannot be empty", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(LogInActivity.this, MainActivity.class));
                     return;
                 }
                 fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {

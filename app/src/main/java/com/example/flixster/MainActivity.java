@@ -12,6 +12,7 @@ import android.graphics.PixelFormat;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         RecyclerView rvMovies = binding.rvMovies;
-        //getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.BLACK));
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.purple)));
 
         // Start information activity customized for clicked item
         MovieAdapter.OnClickListener onClickListener= new MovieAdapter.OnClickListener() {
