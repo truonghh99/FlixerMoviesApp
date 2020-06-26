@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PixelFormat;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
@@ -28,6 +31,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -51,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         RecyclerView rvMovies = binding.rvMovies;
+        //getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.BLACK));
 
         // Start information activity customized for clicked item
         MovieAdapter.OnClickListener onClickListener= new MovieAdapter.OnClickListener() {
@@ -83,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     movieAdapter.notifyDataSetChanged();
                     movieAdapter.updateFullList(movies);
                     Log.i(TAG, "Movies: " + movies.size());
-                } catch (JSONException e) {
+                } catch (JSONException | ParseException e) {
                     Log.e(TAG, "Failed to extract JSONArray");
                 }
             }
