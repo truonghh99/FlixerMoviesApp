@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,51 +12,54 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.flixster.databinding.ActivityLogInBinding;
+import com.example.flixster.databinding.ActivityRegisterBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class LogInActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
+    private EditText name;
+    private EditText date;
     private EditText etEmail;
     private EditText etPassword;
-    private Button btnLogin;
-    private TextView tvRegister;
-    private String email;
-    private String password;
-    private FirebaseAuth fAuth;
+    private Button register;
+    private TextView login;
+
+    String email;
+    String password;
+    FirebaseAuth fAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        ActivityLogInBinding binding = ActivityLogInBinding.inflate(getLayoutInflater());
+        ActivityRegisterBinding binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        name = binding.etName;
+        date = binding.editTextDate;
         etEmail = binding.etEmailLogin;
         etPassword = binding.etPassword;
-        btnLogin = binding.btnLogin;
-        tvRegister = binding.tvRegister;
+        register = binding.btnRegister;
+        login = binding.tvLogin;
 
         fAuth = FirebaseAuth.getInstance();
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 email = etEmail.getText().toString();
                 password = etPassword.getText().toString();
 
-                if (email == null || password == null || email.length() == 0 || password.length() == 0) {
-                    Toast.makeText(getApplicationContext(), "Email and password cannot be empty", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(), "Logged in successfully!", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(LogInActivity.this, MainActivity.class));
+                            Toast.makeText(getApplicationContext(), "Register successfully!", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(RegisterActivity.this, LogInActivity.class));
                         } else {
                             Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
@@ -66,10 +68,10 @@ public class LogInActivity extends AppCompatActivity {
             }
         });
 
-        tvRegister.setOnClickListener(new View.OnClickListener() {
+        login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LogInActivity.this, RegisterActivity.class));
+                startActivity(new Intent(RegisterActivity.this, LogInActivity.class));
             }
         });
 
