@@ -32,6 +32,8 @@ import com.example.flixster.databinding.ActivityInfoBinding;
 import com.example.flixster.databinding.ActivityMainBinding;
 import com.example.flixster.models.Movie;
 import com.example.flixster.storage.LibraryStorage;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Collections;
 
@@ -40,13 +42,13 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 public class InfoActivity extends AppCompatActivity {
 
     public static final String KEY_ID = "MOVIE_ID";
-    TextView title;
-    RatingBar ratingBar;
-    TextView popularity;
-    TextView overview;
-    Movie movie;
-    Drawable playIcon;
-    ImageView ivPoster;
+    private TextView title;
+    private RatingBar ratingBar;
+    private TextView popularity;
+    private TextView overview;
+    private Movie movie;
+    private Drawable playIcon;
+    private ImageView ivPoster;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

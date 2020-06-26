@@ -1,6 +1,8 @@
 package com.example.flixster.storage;
 
 import com.example.flixster.models.Movie;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,6 +12,7 @@ public class LibraryStorage {
 
     public static List<Movie> movies = new ArrayList<>();
     public static HashMap<String, Movie> addedMovie = new HashMap<>();
+    private static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("Library");
 
     public static boolean addNewMovie(Movie movie) {
         String movieId = movie.getId();
@@ -18,6 +21,7 @@ public class LibraryStorage {
         } else {
             addedMovie.put(movieId, movie);
             movies.add(movie);
+            mDatabase.push().setValue(movie);
         }
         return true;
     }
@@ -29,6 +33,7 @@ public class LibraryStorage {
         } else {
             addedMovie.remove(movieId);
             movies.remove(movie);
+            mDatabase.push().setValue(movie);
         }
         return true;
     }
