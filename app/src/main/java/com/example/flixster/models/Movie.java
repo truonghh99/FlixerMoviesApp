@@ -1,9 +1,13 @@
 package com.example.flixster.models;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,10 +21,10 @@ public class Movie {
     String movieId;
     double popularity;
     double rating;
-    String date;
+    Date date;
 
 
-    public Movie(JSONObject jsonObject) throws JSONException {
+    public Movie(JSONObject jsonObject) throws JSONException, ParseException {
         backdropPath = jsonObject.getString("backdrop_path");
         posterPath = jsonObject.getString("poster_path");
         title = jsonObject.getString("title");
@@ -28,11 +32,13 @@ public class Movie {
         popularity = jsonObject.getDouble("popularity");
         rating = jsonObject.getDouble("vote_average");
         movieId = jsonObject.getString("id");
-        date = jsonObject.getString("release_date");
+        String stringDate = jsonObject.getString("release_date");
+        Log.e("Checking", stringDate);
+        date = new SimpleDateFormat("yyyy-MM-dd").parse(stringDate);
     }
 
     // Extract movies from given JsonArray
-    public static List<Movie> extractMoviesFromJsonArray(JSONArray movieJsonArray) throws JSONException {
+    public static List<Movie> extractMoviesFromJsonArray(JSONArray movieJsonArray) throws JSONException, ParseException {
         List<Movie> movies = new ArrayList<>();
         for (int i = 0; i < movieJsonArray.length(); ++i) {
             movies.add(new Movie(movieJsonArray.getJSONObject(i)));
@@ -68,7 +74,7 @@ public class Movie {
         return movieId;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 }
