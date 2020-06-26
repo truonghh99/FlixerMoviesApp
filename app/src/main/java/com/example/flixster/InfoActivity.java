@@ -22,6 +22,7 @@ import android.widget.RatingBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -103,6 +104,7 @@ public class InfoActivity extends AppCompatActivity {
 
     }
 
+
     // Implement details on toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -112,25 +114,27 @@ public class InfoActivity extends AppCompatActivity {
         MenuItem addItem = menu.findItem(R.id.btAdd);
         MenuItem libraryItem = menu.findItem(R.id.btLibrary);
 
-        ImageView btAdd = (ImageView) addItem.getActionView();
-        ImageView btLibrary = (ImageView) libraryItem.getActionView();
-
-        btAdd.setOnClickListener(new View.OnClickListener() {
+        addItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
-            public void onClick(View view) {
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Log.e("TESTING", "add clicked");
                 if (LibraryStorage.addNewMovie(movie)) {
                     Toast.makeText(getApplicationContext(), "Movie added to your library!", Toast.LENGTH_SHORT);
                 } else {
                     Toast.makeText(getApplicationContext(), "Movie is already in your library", Toast.LENGTH_SHORT);
                 }
+                return true;
             }
         });
 
-        btLibrary.setOnClickListener(new View.OnClickListener() {
+
+        libraryItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
-            public void onClick(View view) {
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Log.e("TESTING", "LIBRARY clicked");
                 Intent intent = new Intent(InfoActivity.this, LibraryActivity.class);
                 startActivity(intent);
+                return true;
             }
         });
 
