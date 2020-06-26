@@ -6,13 +6,13 @@
         android:icon="@drawable/ic_add"
         android:title="Add"
         app:showAsAction="ifRoom|collapseActionView"
-        app:actionViewClass="androidx.appcompat.widget.ButtonBarLayout"
+        app:actionViewClass="android.widget.ImageView"
         />
 
     <item android:id="@+id/btLibrary"
         android:icon="@drawable/ic_saved"
         android:title="Library"
         app:showAsAction="ifRoom|collapseActionView"
-        app:actionViewClass="androidx.appcompat.widget.ButtonBarLayout"
+        app:actionViewClass="android.widget.ImageView"
         />
 </menu>
