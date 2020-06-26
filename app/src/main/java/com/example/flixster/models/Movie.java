@@ -23,6 +23,8 @@ public class Movie {
     double rating;
     Date date;
 
+    public Movie() {
+    }
 
     public Movie(JSONObject jsonObject) throws JSONException, ParseException {
         backdropPath = jsonObject.getString("backdrop_path");
