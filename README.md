@@ -30,13 +30,16 @@ The following **additional** features are implemented:
   * [x] Create a storage class to store selected movies 
   * [x] Create a separate activity to show library when requested
   * [x] Allow user to modify their library (add and delete movies)
+* [x] Add the ability to authenticate user
+  * [x] Add Login & Register activity
+  * [x] Connect to Firebase to store users' information
 
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://imgur.com/GlJTN16' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
