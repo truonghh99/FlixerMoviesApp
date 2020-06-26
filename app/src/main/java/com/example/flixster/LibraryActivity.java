@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.flixster.adapters.MovieAdapter;
 import com.example.flixster.databinding.ActivityLibraryBinding;
@@ -39,6 +40,7 @@ public class LibraryActivity extends AppCompatActivity {
             public void onClickListener(int position) {
                 LibraryStorage.removeMovie(movies.get(position));
                 movieAdapter.notifyDataSetChanged();
+                Toast.makeText(getApplicationContext(), "Movie removed from your library", Toast.LENGTH_SHORT).show();
             }
         };
 

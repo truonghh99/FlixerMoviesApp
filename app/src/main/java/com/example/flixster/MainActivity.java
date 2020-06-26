@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     JSONArray results = jsonObject.getJSONArray("results");
                     Log.i(TAG, "Results: " + results.toString());
-                    movies.addAll(Movie.extractMoviesFromJsonArray(results));
+                    if (movies.size() == 0) movies.addAll(Movie.extractMoviesFromJsonArray(results));
                     Collections.sort(movies, new RatingComparator());
                     movieAdapter.notifyDataSetChanged();
                     movieAdapter.updateFullList(movies);

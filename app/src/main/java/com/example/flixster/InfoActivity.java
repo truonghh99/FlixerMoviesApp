@@ -53,7 +53,7 @@ public class InfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityInfoBinding binding = ActivityInfoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        getSupportActionBar().setTitle("Detail");
+        getSupportActionBar().setTitle("Details");
 
         // Bind view from layout
         title = binding.tvTitleInfo;
@@ -120,9 +120,9 @@ public class InfoActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem menuItem) {
                 Log.e("TESTING", "add clicked");
                 if (LibraryStorage.addNewMovie(movie)) {
-                    Toast.makeText(getApplicationContext(), "Movie added to your library!", Toast.LENGTH_SHORT);
+                    Toast.makeText(getApplicationContext(), "Movie added to your library!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Movie is already in your library", Toast.LENGTH_SHORT);
+                    Toast.makeText(getApplicationContext(), "Movie is already in your library", Toast.LENGTH_SHORT).show();
                 }
                 return true;
             }
