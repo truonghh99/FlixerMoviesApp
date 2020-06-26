@@ -25,6 +25,7 @@ public class LibraryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("Library");
 
         ActivityLibraryBinding binding = ActivityLibraryBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
