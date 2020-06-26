@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -29,6 +30,7 @@ import com.example.flixster.comparators.RatingComparator;
 import com.example.flixster.databinding.ActivityInfoBinding;
 import com.example.flixster.databinding.ActivityMainBinding;
 import com.example.flixster.models.Movie;
+import com.example.flixster.storage.LibraryStorage;
 
 import java.util.Collections;
 
@@ -110,8 +112,28 @@ public class InfoActivity extends AppCompatActivity {
         MenuItem addItem = menu.findItem(R.id.btAdd);
         MenuItem libraryItem = menu.findItem(R.id.btLibrary);
 
-        ButtonBarLayout btAdd = (ButtonBarLayout) addItem.getActionView();
-        ButtonBarLayout btLibrary = (ButtonBarLayout) libraryItem.getActionView();
+        ImageView btAdd = (ImageView) addItem.getActionView();
+        ImageView btLibrary = (ImageView) libraryItem.getActionView();
+
+        btAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (LibraryStorage.addNewMovie(movie)) {
+                    Toast.makeText(getApplicationContext(), "Movie added to your library!", Toast.LENGTH_SHORT);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Movie is already in your library", Toast.LENGTH_SHORT);
+                }
+            }
+        });
+
+        btLibrary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(InfoActivity.this, LibraryActivity.class);
+                startActivity(intent);
+            }
+        });
+
         return true;
     }
 }
