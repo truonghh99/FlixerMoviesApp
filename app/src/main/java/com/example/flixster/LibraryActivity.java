@@ -18,10 +18,8 @@ import java.util.List;
 
 public class LibraryActivity extends AppCompatActivity {
 
-    public static final String KEY_ITEM_POSITION = "item_position";
-
     MovieAdapter movieAdapter;
-    List<Movie> movies = LibraryStorage.movies;
+    List<Movie> movies;
     RecyclerView rvMovies;
 
     @Override
@@ -31,6 +29,7 @@ public class LibraryActivity extends AppCompatActivity {
         ActivityLibraryBinding binding = ActivityLibraryBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        movies = LibraryStorage.movies;
         rvMovies = binding.rvMoviesLibrary;
 
         // Remove clicked movies from library
@@ -38,7 +37,7 @@ public class LibraryActivity extends AppCompatActivity {
             @Override
             public void onClickListener(int position) {
                 LibraryStorage.removeMovie(movies.get(position));
-
+                movieAdapter.notifyDataSetChanged();
             }
         };
 
@@ -46,9 +45,5 @@ public class LibraryActivity extends AppCompatActivity {
         movieAdapter = new MovieAdapter(this, movies, onClickListener);
         rvMovies.setAdapter(movieAdapter);
         rvMovies.setLayoutManager(new LinearLayoutManager(this));
-    }
-
-    public void addNewMovie(Movie movie) {
-        movies.add(movie);
     }
 }
