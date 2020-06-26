@@ -26,7 +26,10 @@ The following **additional** features are implemented:
 
 * [x] Add a searchbar for user to search movies from the current list
 * [x] Add the ability to sort movie list based on rating / release date
-* [x] Allow user to save their favorite movies and create a new library activity to store those movies
+* [x] Add a customized library
+  * [x] Create a storage class to store selected movies 
+  * [x] Create a separate activity to show library when requested
+  * [x] Allow user to modify their library (add and delete movies)
 
 
 ## Video Walkthrough
