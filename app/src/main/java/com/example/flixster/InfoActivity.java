@@ -53,6 +53,7 @@ public class InfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityInfoBinding binding = ActivityInfoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        getSupportActionBar().setTitle("Detail");
 
         // Bind view from layout
         title = binding.tvTitleInfo;
