@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1029475505919",
+    "firebase_url": "https://flixstermovieapp.firebaseio.com",
+    "project_id": "flixstermovieapp",
+    "storage_bucket": "flixstermovieapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1029475505919:android:f2709488d50794d25e9eca",
+        "android_client_info": {
+          "package_name": "com.example.flixster"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1029475505919-58bo5rgorfqc3nd8sn47530lvjm1ne8a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyFJBF17-aFYTBo5FjmiRH6LRPcBWM7wc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1029475505919-58bo5rgorfqc3nd8sn47530lvjm1ne8a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
