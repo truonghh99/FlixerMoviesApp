@@ -41,6 +41,11 @@ Here's a walkthrough of implemented user stories:
 
 <img src="https://github.com/truonghh99/Flixster/blob/master/Demolight.gif" title='Video Walkthrough' alt='Video Walkthrough' />
 
+In landscape mode:
+
+<img src="https://github.com/truonghh99/Flixster/blob/master/landscape2.gif" title='Video Walkthrough' alt='Video Walkthrough' />
+
+
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
