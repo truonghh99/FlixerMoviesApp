@@ -45,9 +45,9 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+This is the first time I've ever used database. Even though Firebase is user friendly, the experience as a whole is definitely challenging. I've also had a tough time exploring the toolbar and menu items, yet I'm glad that I finally got a general idea of how to deal with those things. 
 
-## Open-source libraries used
+## Open-source libraries usedI 
 
 - [Android Async HTTP](https://github.com/loopj/android-async-http) - Simple asynchronous HTTP requests with JSON parsing
 - [Glide](https://github.com/bumptech/glide) - Image loading and caching library for Android
