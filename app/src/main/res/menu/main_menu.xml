@@ -4,11 +4,12 @@
 
     <item
         android:id="@+id/action_switch"
+        android:backgroundTint="@color/orange"
         android:forceDarkAllowed="false"
+        android:foregroundTint="@color/orange"
         android:title="Switch"
         app:actionLayout="@layout/switch_item"
-        app:showAsAction="always"
-    />
+        app:showAsAction="always" />
 
     <item android:id="@+id/action_search"
         android:icon="@drawable/ic_search"

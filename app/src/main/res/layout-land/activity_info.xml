@@ -44,8 +44,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="90dp"
         android:layout_toEndOf="@+id/ivPosterInfo"
-        android:progressTint="@color/golden"
-        android:secondaryProgressTint="@color/golden"
+        android:progressTint="@color/orange"
+        android:secondaryProgressTint="@color/orange"
         android:progressBackgroundTint="@color/grey"
         android:numStars="5" />
 
