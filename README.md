@@ -1,6 +1,6 @@
-# Project 2 - *What's in the theater?*
+# Project 2 - *FLixster*
 
-**What's in the theater?** shows the latest movies currently playing in theaters. The app utilizes the Movie Database API to display images and basic information about these movies to the user.
+**Flixster** shows the latest movies currently playing in theaters. The app utilizes the Movie Database API to display images and basic information about these movies to the user.
 
 Time spent: **23** hours spent in total
 
